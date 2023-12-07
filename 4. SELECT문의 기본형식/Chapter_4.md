@@ -1,5 +1,5 @@
 ## SELECT문의 기본형식
-4-3. SQL의 기본 뼈대, SELECT절과 FROM절
+### 4-3. SQL의 기본 뼈대, SELECT절과 FROM절
 ```sql
 기본형식
 SELECT [조회할 열1 이름], [열2 이름], ..., [열N 이름]
@@ -19,7 +19,7 @@ SELECT EMPNO, ENAME, DEPTNO
 FROM EMP;
 ```
 
-4-4. 중복 데이터를 삭제하는 DISTINCT<br>
+### 4-4. 중복 데이터를 삭제하는 DISTINCT<br>
 DISTINCE는 조회한 데이터의 내용에서 불필요한 중복을 제거하고 특정 데이터 종류만 확인하고 싶을 때 유용합니다.
 - 열이 한 개일 때 열 중복 제거하기
 ```sql
@@ -37,7 +37,7 @@ SELECT ALL JOB, DEPTNO
 FROM EMP;
 ```
 
-4-5. 한눈에 보기 좋게 별칭 설정하기<br>
+### 4-5. 한눈에 보기 좋게 별칭 설정하기<br>
 긴 열 이름을 짧고 간단한 다른 이름으로 알기 쉽게 출력할 때 별칭을 사용합니다.<br>
 즉, 열 이름 대신 붙이는 이름을 별칭(alias)이라고 합니다.
 
@@ -71,7 +71,14 @@ String sql = "SELECT ENAME, SAL, SAL * 12 + COMM AS ANNSAL, COMM FROM EMP";
 String sql = "SELECT ENAME, SAL, SAL * 12 + COMM AS "ANNSAL", COMM FROM EMP"; // ""로 인한 오류나 예외상황 발생가능성이 있음
 ```
 
-4-6. 원하는 순서로 출력 데이터를 정렬하는 ORDER BY<br>
+### 4-6. 원하는 순서로 출력 데이터를 정렬하는 ORDER BY<br>
+```sql
+SELECT [조회할 열1 이름], [열2 이름], ..., [열N 이름]
+FROM [조회할 테이블 이름]
+  (그밖의 절)
+ORDER BY [정렬하려는 열 이름(여러 열 지정 가능)] [정렬 옵션];
+-- 정렬 옵션 : ASC, DESC
+```
 SELECT문을 사용하여 데이터를 조회할 때 시간이나 이름 순서 또는 어떤 다른 기준으로 데이터를 정렬해서 출력해야 하는 경우 ORDER BY를 사용합니다. ORDER BY절은 SELECT문을 작성할 때 사용할수 있는 여러 절 중 가장 마지막 부분에 적습니다.
 
 - 오름차순 사용하기
@@ -102,4 +109,3 @@ ORDER BY DEPTNO ASC, SAL DESC;
 ORDER BY절이 존재할 경우 SELECT문을 통해 조회할 데이터를 모두 확정한 상태에서 ORDER BY절의 명시된 기준에 따라 정렬하는데<br>
 데이터의 양 또는 정렬 방식에 따라 출력 데이터를 선정하는 시간보다 정렬하는 데 시간이 더 걸리게 됩니다.<br>
 즉, SQL문의 효율이 낮아지므로 ORDER BY절을 사용한 정렬은 꼭 필요한 경우가 아니면 사용하지 않는 것이 좋습니다.<br>
-
