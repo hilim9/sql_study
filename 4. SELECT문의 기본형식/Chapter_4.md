@@ -52,7 +52,7 @@ FROM EMP;
 
 - 별칭을 사용하여 사원의 연간 총 수입 출력하기
 ```sql
-// SAL * 12 + COMM 열이름을 ANNSAL로 별칭 설정
+-- SAL * 12 + COMM 열이름을 ANNSAL로 별칭 설정
 SELECT ENAME, SAL, SAL * 12 + COMM AS ANNSAL, COMM
 FROM EMP;
 ```
@@ -76,14 +76,14 @@ SELECT문을 사용하여 데이터를 조회할 때 시간이나 이름 순서 
 
 - 오름차순 사용하기
 ```sql
-// EMP 테이블의 모든 열을 급여 기준으로 오름차순 정렬하기
+-- EMP 테이블의 모든 열을 급여 기준으로 오름차순 정렬하기
 SELECT *
 FROM EMP
 ORDER BY SAL;
 ```
 - 내림차순 사용하기
 ```sql
-// EMP 테이블의 모든 열을 급여 기준으로 내림차순 정렬하기
+-- EMP 테이블의 모든 열을 급여 기준으로 내림차순 정렬하기
 SELECT *
 FROM EMP
 ORDER BY SAL DESC;
@@ -92,7 +92,7 @@ ORDER BY SAL DESC;
 ORDER BY절에는 우선순위를 고려하여 여러 개의 정렬 기준을 지정할 수 있습니다.
 
 ```sql
-// EMP 테이블의 전체 열을 부서 번호(오름차순)와 급여(내림차순)로 정렬하기
+-- EMP 테이블의 전체 열을 부서 번호(오름차순)와 급여(내림차순)로 정렬하기
 SELECT *
 FROM EMP
 ORDER BY DEPTNO ASC, SAL DESC;
