@@ -68,7 +68,7 @@ AS가 붙는 형식을 선호하는 이유는 조회해야 할 열이 수십, �
 ```java
 String sql = "SELECT ENAME, SAL, SAL * 12 + COMM AS ANNSAL, COMM FROM EMP";
 
-String sql = "SELECT ENAME, SAL, SAL * 12 + COMM AS "ANNSAL", COMM FROM EMP"; // 오류나 예외상황 발생가능성이 있음
+String sql = "SELECT ENAME, SAL, SAL * 12 + COMM AS "ANNSAL", COMM FROM EMP"; // ""로 인한 오류나 예외상황 발생가능성이 있음
 ```
 
 4-6. 원하는 순서로 출력 데이터를 정렬하는 ORDER BY<br>
