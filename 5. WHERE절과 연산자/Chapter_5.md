@@ -273,15 +273,15 @@ OR JOB = 'CLERK';
 - 집합 연산자
   두 개 이상의 SELECT문의 결과 값을 연결할 때 사용합니다.
    
-```SQL
--- 10번과 20번 부서에서 근무하는 사원 조회하기 
-SELECT EMPNO, ENAME, SAL, DEPTNO
-FORM EMP
-WHERE DEPTNO = 10
-UNION
-SELECT EMPNO, ENAME, SAL, DEPTNO
-FROM EMP
-WHERE DEPTNO 20;
-```    
-주의할 점은 집합 연산자로 두 개의 SELECT문의 결과 값을 연결할 때 각 SELECT문이 출력하려는 열 개수와 각 열의 자료형이 순서별로 일치해야 한다는 것입니다. 
+  ```SQL
+  -- 10번과 20번 부서에서 근무하는 사원 조회하기 
+  SELECT EMPNO, ENAME, SAL, DEPTNO
+  FORM EMP
+  WHERE DEPTNO = 10
+  UNION
+  SELECT EMPNO, ENAME, SAL, DEPTNO
+  FROM EMP
+  WHERE DEPTNO 20;
+  ```    
+  주의할 점은 집합 연산자로 두 개의 SELECT문의 결과 값을 연결할 때 각 SELECT문이 출력하려는 열 개수와 각 열의 자료형이 순서별로 일치해야 한다는 것입니다. 
   
