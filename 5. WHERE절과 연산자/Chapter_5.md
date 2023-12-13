@@ -171,7 +171,7 @@ OR JOB = 'CLERK';
   FROM EMP
   WHERE SAL NOT BETWEEN 2000 AND 3000;
   ```
-- LIKE 연산자와 와일드 카드
+- LIKE 연산자와 와일드 카드<br>
   LIKE 연산자는 검색 기능처럼 일부 문자열이 포함된 데이터를 조회할 때 사용합니다.
 
   와일드 카드 종류
