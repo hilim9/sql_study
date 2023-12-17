@@ -69,5 +69,6 @@
       SUBSTR(JOB, -3)
     FROM EMP;
     ```
+  - 문자열 데이터 안에서 특정 문자 위치를 찾는 INSTR 함수
   
   
