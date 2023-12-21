@@ -141,5 +141,67 @@
           RPAD('010-1234-', 13, '*') AS RPAD_PHONE
     FROM DUAL;  
     ```
+- 두 문자열 데이터를 합치는 CONCAT 함수<br>
+  두 개의 문자열 데이터를 하나의 데이터로 연결해 주는 역할을 합니다. 두 개의 입력 데이터 지정을 하고 열이나 문자열 데이터 모두 지정할 수 있습니다.
+
+  ```SQL
+  SELECT CONCAT(EMPNO, ENAME),
+         CONCAT(EMPCNO. CONCAT(' : ', ENAME))
+  FROM EMP
+  WHERE ENAME = 'SCOTT';
+  ```
+  CONCAT을 사용한 결과 값은 다시 다른 CONCAT 함수의 입력 값으로 사용하는 것도 가능합니다.
+
+  - 문자열 데이터를 연결하는 || 연산자<br>
+    || 연산자 CONCAT 함수와 유사하게 열이나 문자열을 연결합니다.
+    ```SQL
+    SELECT EMPNO || ENAME,
+           EMPNO || ' : ' || ENAME
+    FROM ...
+    ```
   
+- 특정 문자를 지우는 TRIM, LTRIM, RTRIM 함수<br>
+  원본 데이터를 제외한 나머지 데이터는 모두 생략할 수 있으며, 삭제할 문자가 생략될 경우에 기본적으로 공백을 제거합니다.
+  삭제 옵션은 왼쪽에 있는 글자를 지우는 LEADING, 오른쪽에 있는 글자를 지우는 TRAILING, 양쪽의 글자를 모두 지우는 BOTH를 사용합니다.
+
+  - TRIM 함수
+    ```SQL
+    -- TRIM 함수의 기본형식
+    TRIM([삭제 옵션(선택)] [삭제할 문자(선택)] FROM [원본 문자열 데이터(필수)])
+    ```
+    ```SQL
+    -- TRIM 함수로 공백 제거하여 출력하기
+    SELECT '[' || TRIM('_ _Oracle_ _') || ']' AS TRIM,
+           '[' || TRIM(LEADING FROM ' _ _Oracle_ _ ') || ']' AS TRIM_LEADING,
+           '[' || TRIM(TRAILING FROM ' _ _Oracle_ _ ') || ']' AS TRIM_TRAILING,
+           '[' || TRIM(BOTH FROM ' _ _Oracle_ _ ') || ']' AS TRIM_BOTH,
+    FROM DUAL;
+    ```
+    ```SQL
+    -- TRIM 함수로 삭제할 문자 _ 삭제 후 출력하기
+    SELECT '[' || TRIM('_' FROM '_ _Oracle_ _') || ']' AS TRIM,
+           '[' || TRIM(LEADING '_' FROM ' _ _Oracle_ _ ') || ']' AS TRIM_LEADING,
+           '[' || TRIM(TRAILING '_' FROM ' _ _Oracle_ _ ') || ']' AS TRIM_TRAILING,
+           '[' || TRIM(BOTH '_' FROM ' _ _Oracle_ _ ') || ']' AS TRIM_BOTH,
+    FROM DUAL;
+    ```
+  - LTRIM, RTRIM 함수
+    ```SQL
+    -- LTRIM, RTRIM 함수의 기본형식
+    LTRIM([원본 문자열 데이터(필수)], [삭제할 문자 집합(선택)]) // 왼쪽에서 삭제할 문자열 지정
+    RTRIM([원본 문자열 데이터(필수)], [삭제할 문자 집합(선택)]) // 오른쪽에서 삭제할 문자열 지정
+    ```
+    삭제할 문자를 지정하지 않을 경우 공백 문자가 삭제됩니다.
+    TRIM 함수와 차이점은 삭제할 문자를 하나만 지정하는 것이 아니라 여러 문자 지정이 가능합니다.
   
+    ```SQL
+    -- TRIM, LTRIM, RTRIM 함수
+    SELECT '[' || TRIM(' _Oracle_ ') || ']' AS TRIM,
+           '[' || LTRIM(' _Oracle_ ') || ']' AS LTRIM,
+           '[' || LTRIM('<_Oracle_>', '_<') || ']' AS LTRIM2,
+           '[' || RTRIM(' _Oracle_ ') || ']' AS RTRIM,
+           '[' || RTRIM('<_Oracle_>', '>_') || ']' AS RTRIM2,
+    FROM DUAL; 
+    ```
+    \_<를 삭제할 문자로 지정하고 원본 문자열이 <_<_ORACLE일 경우 결과는 Oracle만 남게 됩니다.
+    하지만 <_O<_racle 문자열은 LTRIM의 결과로 O<_racle이 남게 됩니다.
