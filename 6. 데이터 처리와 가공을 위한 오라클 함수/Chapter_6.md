@@ -305,3 +305,25 @@ CEIL 함수와 FLOOR 함수는 각각 입력된 숫자와 가까운 큰 정수, 
          SYSDATE+1 AS TOMORROW  // 하루 이후 날짜 출력
   FROM DUAL;
   ```
+  - 몇 개월 이후 날짜를 구하는 ADD_MONTHS 함수<br>
+    ADD_MONTHS 함수는 특정 날짜에 지정한 개월 수 이후 날짜 데이터를 반환하는 함수입니다.
+    ```SQL
+    -- 기본형식
+    ADD_MONTHS([날짜 데이터(필수)], [더할 개월 수(정수)(필수)]
+    ```
+
+    ```SQL
+    -- 3개월 후 날짜 구하기
+    SELECT SYSDATE,
+           ADD_MONTHS(SYSDATE, 3)
+    FROM DUAL;
+    ```
+    ADD_MONTHS 함수는 단순히 날짜 데이터에 몇 개월 더한 결과를 반환하는 간단한 기능이라 많이 사용되지 않을 것이라 생각되지만,
+    윤년 등의 이유로 복잡해질 수 있는 날짜 계산을 간단하게 만들어 주기 때문에 자주 사용 됩니다.
+
+    ```SQL
+    -- 입사 10주년이 되는 사원들 데이터 출력하기
+    SELECT EMPNO, ENAME, HIREDATE,
+           ADD_MONTHS(HIREDATE, 120) AS WORK10YEAR
+    FROM EMP;
+    ```
