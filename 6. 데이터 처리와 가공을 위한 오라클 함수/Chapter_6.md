@@ -327,3 +327,18 @@ CEIL 함수와 FLOOR 함수는 각각 입력된 숫자와 가까운 큰 정수, 
            ADD_MONTHS(HIREDATE, 120) AS WORK10YEAR
     FROM EMP;
     ```
+- 두 날짜 간의 개월 수 차이를 구하는 MONTHS_BETWEEN 함수
+  ```SQL
+  -- 기본형식
+  MONTHS_BETTWEEN([날짜 데이터1(필수)], [날짜 데이터2(필수)]
+  ```
+  ```SQL
+  -- HIREDATE와 SYSDATE 사이의 개월 수를 MONTHS_BETWEEN 함수로 출력하기
+  SELECT EMPNO, ENAME, HIREDATE, SYSDATE,
+         MONTHS_BETWEEN(HIREDATE, SYSDATE) AS MONTHS1,
+         MONTHS_BETWWEN(SYSDATE, HIREDATE) AS MONTHS2,
+         TRUNC(MONTHS_BETWEEN(SYSDATE, HIREDATE)) AS MONTHS3
+  FROM EMP;
+  ```
+  MONTHS1, MONTHS2에서 알 수 있듯이 비교 날짜의 입력 위치에 따라 음수 또는 양수가 나올 수 있습니다. 개월 수 차이는 소수점 단위까지 결과가 나오므로 MONTHS3과 같이 TRUNC 함수를 조합하면 개월 수 차이를 정수로 출력할 수도 있습니다.
+  
