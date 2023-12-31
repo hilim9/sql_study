@@ -362,7 +362,54 @@ CEIL 함수와 FLOOR 함수는 각각 입력된 숫자와 가까운 큰 정수, 
          LAST_DAY(SYSDATE)
   FROM DUAL;
   ```
-- 날짜의 반올림, 버림을 하는 ROUND, TRUNC 함수
+- 날짜의 반올림, 버림을 하는 ROUND, TRUNC 함수<br>
+  숫자의 데이터의 반올림, 버림 처리에 사용한 ROUND, TRUNC 함수는 날짜 데이터를 입력 데이터로 사용할 수도 있습니다.
+  이때는 소수점 위치 정보를 입력하지 않고 반올림, 버림의 기준이 될 포맷(format)값을 지정해 줍니다.
+
+  |입력 데이터 종류|사용방식|
+  |:----|:-----|
+  | 숫자 데이터 | ROUND([숫자(필수)]), [반올림 위치]) |
+  | 숫자 데이터 | TRUNC([숫자(필수)]), [버림 위치]) |
+  | 날짜 데이터 | ROUND([날짜데이터(필수)], [반올림 기준 포맷]) |
+  | 날짜 데이터 | TRUNC([날짜데이터(필수)], [버림 기준 포맷]) |
+
+  오라클에서 날짜 데이터를 사용할 때 기준 포맷 값은 다음과 같습니다.
+
+  |포맷 모델|기준단위|
+  |:----|:-----|
+  | CC, SCC | 네 자리 연도의 끝 두 자리를 기준으로 사용 |
+  | SYYYY, YYYY, YEAR, SYEAR, YYY, YY, Y | 날짜 데이터의 해당 연 월 일의 7월 1일을 기준 |
+  | IYYY, IYY, IY, I | ISO 8601에서 제정한 날짜 기준년도 포맷을 기준 |
+  | Q | 각 분기의 두 번째 달의 16일 기준 |
+  | MONTH, MON, MM, RM | 각 달의 16일 기준 |
+  | WW | 해당 연도의 몇 주(1~53번째 주)를 기준 |
+  | IW | ISO 8601에서 제정한 날짜 기준 해당 연도의 주(week)를 기준 |
+  | W | 해당 월의 주(1~5번째 주)를 기준 |
+  | DDD, DD, J | 해당 일의 정오(12:00:00)를 기준 |
+  | DAY, DY, D | 한 주가 시작되는 날짜를 기준 |
+  | HH, HH12, HH24 | 해당일의 기산을 기준 |
+  | MI | 해당일 시간의 분을 기준 |
+  
+  TRUNC와 ROUND를 사용한 SELECT문은 실행하는 시점의 날짜가 결과에 영향을 미치므로 결과가 다르게 나오는 것에 주의해야 합니다.
+  ```SQL
+  -- ROUND 함수를 사용하여 날짜 데이터 출력하기
+  SELECT SYSDATE,
+         ROUND(SYSDATE, 'CC') AS FORMAT_CC,
+         ROUND(SYSDATE, 'YYYY') AS FORMAT_YYYY,
+         ROUND(SYSDATE, 'Q') AS FORMAT_Q,
+         ROUND(SYSDATE, 'DDD') AS FORMAT_DDD,
+         ROUND(SYSDATE, 'HH') AS FORMAT_HH
+  FROM DUAL;
+
+  -- TRUNC 함수를 사용하여 날짜 데이터 출력하기
+  SELECT SYSDATE,
+         TRUNC(SYSDATE, 'CC') AS FORMAT_CC,
+         TRUNC(SYSDATE, 'YYYY') AS FORMAT_YYYY,
+         TRUNC(SYSDATE, 'Q') AS FORMAT_Q,
+         TRUNC(SYSDATE, 'DDD') AS FORMAT_DDD,
+         TRUNC(SYSDATE, 'HH') AS FORMAT_HH
+  FROM DUAL;
+  ```
 
   
   
