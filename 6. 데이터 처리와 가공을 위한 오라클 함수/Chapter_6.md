@@ -362,4 +362,7 @@ CEIL 함수와 FLOOR 함수는 각각 입력된 숫자와 가까운 큰 정수, 
          LAST_DAY(SYSDATE)
   FROM DUAL;
   ```
+- 날짜의 반올림, 버림을 하는 ROUND, TRUNC 함수
+
+  
   
