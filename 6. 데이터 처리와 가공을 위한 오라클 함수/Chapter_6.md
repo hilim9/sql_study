@@ -450,5 +450,43 @@ WHERE ENAME = 'SCOTT';
 
 ![4433](https://github.com/hilim9/sql_study/assets/134352560/8d69cfcd-53d9-4c6f-82e9-4504d6dfcd8e)
 
+- 날짜, 숫자 데이터를 문자 데이터로 변환하는 TO_CHAR 함수
+  ```SQL
+  -- 기본형식
+  TO_CHAR([날짜데이터(필수))], '[출력되길 원하는 문자 형태(필수)]'
+  ```
+  - 원하는 출력 형태로 날짜 출력하기<br>
+    예를 들어 현재 날짜와 시간을 '연/월일 시:분:초' 형태로 출력하려면 다음과 같이 SELECT문에 TO_CHAR 함수를 사용할 수 있습니다.
+    ```SQL
+    -- SYSDATE 날짜 형식 지정하여 출력하기
+    SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS') AS 현재날짜시간
+    FROM DUAL;
+    ```
+    |형식|설명|
+    |:----|:-----|
+    | CC | 세기 |
+    | YYYY, RRRR | 연(4자리 숫자) |
+    | YY, RR | 연(2자리 숫자) |
+    | MM | 월(2자리 숫자) |
+    | MON | 월(언어별 월 이름 약자) |
+    | MONTH | 월(언어별 월 이름 전체) |
+    | DD | 일(2자리 숫자) |
+    | DDD | 1년 중 며칠 (1 ~ 366) |
+    | DY | 요일(언어별 요일 이름 약자) |
+    | DAY | 요일(언어별 요일 이름 전체) |
+    | W | 1년 중 몇 번째 주 (1 ~ 53) |
+
+    ```SQL
+    -- 월과 요일을 다양한 형식으로 출력하기
+    SELECT SYSDATE,
+           TO_CHAR(SYSDATE, 'MM') AS MM,
+           TO_CHAR(SYSDATE, 'MON') AS MON,
+           TO_CHAR(SYSDATE, 'MONTH') AS MONTH,
+           TO_CHAR(SYSDATE, 'DD') AS DD,
+           TO_CHAR(SYSDATE, 'DY') AS DY,
+           TO_CHAR(SYSDATE, 'DAY') AS DAY
+    FROM DUAL;
+    ```
+
   
   
