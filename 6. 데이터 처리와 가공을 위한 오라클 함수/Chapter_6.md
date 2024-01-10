@@ -487,6 +487,27 @@ WHERE ENAME = 'SCOTT';
            TO_CHAR(SYSDATE, 'DAY') AS DAY
     FROM DUAL;
     ```
+  - 특정 언어에 맞춰서 날짜 출력하기
+    ```SQL
+    TO_CHAR([날짜 데이터(필수)], '[출력되길 원하는 문자 형태(필수)]',
+    'NLS_DATE_LAANGUAGE =  LANGUAGE'(선택))
+    ```
 
+    ```SQL
+    -- 여러 언어로 날짜(월) 출력하기
+    SELECT SYSDATE,
+           TO_CHAR(SYSDATE, 'MM) AS MM,
+           TO_CHAR(SYSDATE, 'MON', 'NLS_DATE_LANGUAGE = KOREAN') AS MON_KOR,
+           TO_CHAR(SYSDATE, 'MON', 'NLS_DATE_LANGUAGE = JAPANESE') AS MON_JPN,
+           TO_CHAR(SYSDATE, 'MON', 'NLS_DATE_LANGUAGE = ENGLISH') AS MON_ENG,
+           TO_CHAR(SYSDATE, 'MONTH', 'NLS_DATE_LANGUAGE = KOREAN') AS MONTH_KOR,
+           TO_CHAR(SYSDATE, 'MONTH', 'NLS_DATE_LANGUAGE = JAPANESE') AS MONTH_JPN,
+           TO_CHAR(SYSDATE, 'MONTH', 'NLS_DATE_LANGUAGE = ENGLISH') AS MONTH_ENG
+    FROM DUAL;
+    ```
+    연도를 표기하기 위해서는 YYYY, RRRR, YY, RR 형식을 사용합니다.
+    Y를 사용하는 연도와 R을 사용하는 연도는 둘 다 기본적으로 연도를 표기하는 형식이지만, 두 자리로 연도를 출력할 때 1900년대 또는 2000년대로 상이하게 출력되는 현상이 발생할 수 있습니다.
+    이 현상은 4자리 연도 형식에서는 발생하지 않고 대부분 업무에서 연도를 표현할 경우 4자리 형식을 사용하므로 참고하면 됩니다.
+    
   
   
