@@ -587,5 +587,42 @@ WHERE ENAME = 'SCOTT';
   FROM EMP
   WHERE HIREDATE > TO_DATE('1981/06/01', 'YYY/MM/DD');
   ```
+---
+### 6-6. NULL 처리 함수
+- NVL 함수의 기본 사용법<br>
+  NVL 함수는 첫 번째 입력 데이터가 NULL이 아니면 그 데이터를 그대로 반환하고 NULL이라면 두 번째 입력 데이터에 지정한 값을 반환합니다.
+  ```SQL
+  -- 기본 형식
+  NVL([NULL인지 여부를 검사할 데이터 또는 열(필수)],
+      [앞의 데이터가 NULL일 경우 반환할 데이터](필수))
+  ```
 
-  ### Nvl2의 함수의 기본 사용법
+  NVL함수는 NULL 처리를 위해 자주 사용합니다.
+  ```SQL
+  -- NVL 함수를 사용하여 출력하기
+  SELECT EMPNO, ENAME, SAL, COMM, SAL+COMM,
+         NVL(COMM, 0),
+         SAL+NVL(COMM, 0)
+  FROM EMP;
+  ```
+  EMP테이블의 급여 외 추가 수당을 의미하는 COMM 열 값이 NULL인 데이터를 0으로 대체하여 연산이 가능하다는 것을 확인할 수 있습니다.
+  
+- NVL2 함수의 기본 사용법<br>
+  NVL2 함수는 NVL 함수와 비슷하지만 데이터가 NULL이 아닐 때 반환할 데이터를 추가로 지정해 줄 수 있습니다.
+  ```SQL
+  -- 기본형식
+   NVL([NULL인지 여부를 검사할 데이터 또는 열(필수)],
+       [앞의 데이터가 NULL이 아닐 경우 반환할 데이터 또는 계산식](필수)],
+       [앞의 데이터가 NULL일 경우 반환할 데이터 또는 계산식](필수))
+  ```
+  
+  금액 같은 민감한 데이터를 노출 시키지 않고 존재 여부만 확인 할 때 NVL2 함수를 사용할 수 있습니다.
+  ```SQL
+  -- NVL2 함수를 사용하여 출력하기
+  SELECT EMPNO, ENAME, SAL, COMM, SAL+COMM,
+         NVL(COMM, 'O', 'X'), -- 존재 여부만 확인
+         SAL+NVL(COMM, SAL*12+COMM, SAL*12) AS ANNSAL
+  FROM EMP
+  ```
+  NVL2 함수는 NVL함수와는 달리 NULL이 아닌 경우에 반환 데이터까지 지정할 수 있으므로 좀 더 다양한 용도로 활용 가능합니다.
+  
