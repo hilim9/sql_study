@@ -587,3 +587,5 @@ WHERE ENAME = 'SCOTT';
   FROM EMP
   WHERE HIREDATE > TO_DATE('1981/06/01', 'YYY/MM/DD');
   ```
+
+  ### Nvl2의 함수의 기본 사용법
