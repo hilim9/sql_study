@@ -654,3 +654,47 @@ WHERE ENAME = 'SCOTT';
   ```
   DECODE 함수는 한 행에 데이터를 입력받아 한 행으로 결과가 나오는 단일행 함수입니다.
   DECODE 함수의 맨 마지막 데이터, 즉 조건에 해당하는 값이 없을 때 반환 값을 지정하지 않으면 NULL이 반환됩니다.
+  
+- CASE문<br>
+  CASE문은 DECODE 한수와 마찬가지로 특정 조건에 따라 반환할 데이터를 설정할 때 사용합니다.
+  기준 데이터를 반드시 명시하고 그 값에 따라 반환 데이터를 정하는 DECODE 함수와 달리 CASE문은 각 조건에 사용하는 데이터가 서로 상관없어도 됩니다.
+  또, 기준 데이터 값이 같은(=) 데이터 외에 다양한 조건을 사용할 수 있습니다.
+  ```SQL
+  -- 기본형식
+  CASE [검사 대상이 될 열 또는 데이터, 연산이나 함수의 결과(선택)]
+      WHEN [조건1] THEN [조건1의 결과 값이 true일 때, 반환할 결과]
+      WHEN [조건2] THEN [조건2의 결과 값이 true일 때, 반환할 결과]
+      ...
+      WHEN [조건n] THEN [조건n의 결과 값이 true일 때, 반환할 결과]
+      ELSE [위 조건1~조건n과 일치하는 경우가 없을 때 반환할 결과]
+  END
+  ```
+  
+  - DECODE 함수와 같은 방식으로 CASE문 사용하기<br>
+    DECODE 함수에서 사용한 조건과 같은 조건을 데이터를 반환하려면 다음과 같이 사용할 수 있습니다.
+    ```SQL
+    -- CASE문을 사용하여 출력하기
+    SELECT EMPNO, ENAME, JOB, SAL
+        CASE JOB
+             WHEN 'MANGER' THEN SAL*1.1
+             WHEN 'SALESMAN' THEN SAL*1.05
+             WHEN 'ANALYST' THEN SAL
+             ELSE SAL*1.03
+        END AS UPDAL
+    FROM EMP;
+    ```
+
+  - 기준 데이터 없이 조건식만으로 CASE문 사용하기<br>
+    CASE문은 DECODE 함수와는 달리 비교할 기준 데이터를 지정하지 않고 값이 같은 조건 이외의 조건도 사용할 수 있습니다.
+    ```SQL
+    -- 열 값에 따라서 출력 값이 달라지는 CASE문
+    SELECT EMPNO, ENAME, COMM,
+        CASE
+            WHEN COMM IS NULL THEN '해당사항 없음'
+            WHEN COMM = 0 THEN '수당없음'
+            WHEN COMM > 0 THEN '수당 : ' || COMM
+        END AS COMM_TEXT
+    FROM EMP;
+    ```
+    CASE문은 각 조건식의 true, false 여부만 검사하므로 기준 데이터가 없어도 사용이 가능합니다.
+    연산자와 여러 함수를 함께 활용하면 더 복잡한 수준의 조건 검사도 가능하지만, DECODE 함수와 CASE문은 모두 조건별로 동일한 자료형의 데이터를 반환해야 합니다.
