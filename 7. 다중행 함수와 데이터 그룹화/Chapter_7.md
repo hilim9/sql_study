@@ -63,3 +63,43 @@
 
     -- 두 예제의 실행 결과 같습니다.
     ```
+- 최댓값과 최솟값을 구하는 MAX, MIN 함수
+  ```SQL
+  -- 기본 문법
+  -- MAX
+  MAX([DISTINCT, ALL 중 하나를 선택하거나 아무 값도 지정하지 않음(선택)]
+      [최댓값을 구할 열이나 연산자, 함수를 사용한 데이터(필수)])
+  OVER(분석을 위한 여러 문법 지정)(선택)
+
+  -- MIN
+  MIN([DISTINCT, ALL 중 하나를 선택하거나 아무 값도 지정하지 않음(선택)]
+      [최솟값을 구할 열이나 연산자, 함수를 사용한 데이터(필수)])
+  OVER(분석을 위한 여러 문법 지정)(선택)
+  ```
+
+  - 숫자 데이터에 MAX, MIN 함수 사용하기
+    ```SQL
+    -- 부서 번호가 10번인 사원들의 최대 급여 출력하기
+    SELECT MAX(SAL)
+    FROM EMP
+    WHERE DEPTNO = 10;
+
+    -- 부서 번호가 10번인 사원들의 최소 급여 출력하기
+    SELECT MIN(SAL)
+    FROM EMP
+    WHERE DEPTNO = 10;
+    ```
+
+  - 날짜 데이터에 MAX, MIN 함수 사용하기<br>
+    오라클 데이터베이스에서는 날짜 및 문자 데이터의 크기 비교가 가능합니다.
+    ```SQL
+    -- 부서 번호가 20번인 사원의 입사일 중 제일 최근 입사일 출력하기
+    SELECT MAX(HIREDATE)
+    FROM EMP
+    WHERE DEPTNO = 20;
+
+    -- 부서 번호가 20번인 사원의 입사일 중 제일 오래된 입사일 출력하기
+    SELECT MIN(HIREDATE)
+    FROM EMP
+    WHERE DEPTNO = 20;
+    ```
