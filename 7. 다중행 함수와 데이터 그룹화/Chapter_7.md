@@ -103,3 +103,26 @@
     FROM EMP
     WHERE DEPTNO = 20;
     ```
+- 평균 값을 구하는 AVG 함수<br>
+  AVG 함수는 입력 데이터의 평균 값을 구하는 함수 입니다. 숫자 또는 숫자로 암시적 형 변환이 가능한 데이터만 사용할 수 있습니다.
+  ```SQL
+  -- 기본문법
+  AVG([DISTINCT, ALL 중 하나를 선택하거나 아무 값도 지정하지 않은(선택)]
+      [평균 값을 구할 열이나 연산자, 함수를 사용한 데이터(필수)]
+  OVER(분석을 위한 여러 문법을 지정)(선택)
+  ```
+
+  ```SQL
+  -- 부서 번호가 30인 사원들의 평균 급여 출력하기
+  SELECT AVG(SAL)
+  FROM EMP
+  WHERE DEPTNO = 30;
+  ```
+  
+  자주 사용하는 방식은 아니지만 DISTINCT를 지정하면 중복 값을 제외하고 평균값을 구하므로 결과 값이 달라질 수 있습니다.
+  ```SQL
+  -- DISTINCT로 중복을 제거한 급여 열의 평균 급여 구하기
+  SELECT AVG(DISTINCT SAL)
+  FORM EMP
+  WHERE DEPTNO  = 30;
+  ```
