@@ -166,3 +166,63 @@
   위의 예시를 살펴보면 결과가 출력되지 않고 오류가 발생합니다.
   DEPTNO를 기준으로 그룹하되어 DEPTNO 열과 AVG(SAL)열은 한 행으로 출력되지만,
   ENAME 열은 여러 행으로 구성되어 각 열별 데이터 수가 달라져 출력이 불가능해집니다.
+
+---
+### 7-3. GROUP BY 절에 조건을 줄 때 사용하는 HAVING 절
+HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습니다. 그리고 GROUP BY 절을 통해 그룹화된 결과 값의 범위를 제한하는 데 사용합니다.
+
+- HAVING 절의 기본 사용법<br>
+  HAVING 절은 GROUP BY 절이 존재할 경우 GROUP BY 절 바로 다음에 작성합니다. 그리고 GROUP BY 절과 마찬가지로 별칭은 사용할 수 없습니다.
+  ```SQL
+  -- 기본형식
+  SELECT   [조회할 열1 이름], [열2 이름], ..., [열N 이름]
+    FROM     [조회할 테이블 이름]
+    WHERE    [조회할 행을 선별하는 조건식]
+    GROUP BY [그룹화 할 열을 지정(여러 개 지정 가능)]
+    HAVING   [출력 그룹을 제한하는 조건식]
+    ORDER BY [정렬하려는 열 지정]
+  ```
+
+- HAVING 절을 사용할 때 유의점<br>
+  조건실을 지정한다는 점에서 HAVING 절이 WHERE 절과 비슷하다고 생각할 수도 있습니다. 
+  HAVING 절도 WHERE 절처럼 지정한 조건식이 참인 결과만 출력한다는 점에서 비슷한 부분이 있습니다. 
+  하지만 WHERE 절은 출력 대상 행을 제한하고, HAVING 절은 그룹화된 대상을 출력에서 제한하므로 쓰임새는 전혀 다릅니다.  
+  
+  만약 출력 결과를 제한하기 위해 HAVING을 사용하지 않고 조건식을 WHERE 절에 명시하면 다음과 같이 SELECT 문이 실행되지 않고 오류가 발생합니다.
+  ```SQL
+  -- HAVING절 대신 WHERE절을 잘못 사용했을 경우
+  SELECT DEPTNO, JOB, AVG(SAL)
+  FROM EMP
+  WHERE AVG(SAL) >= 2000
+  GROUP BY DEPTNO, JOB
+  ORDER BY DEPTNO, JOB;
+
+  -- 에러 출력 [Error] Execution (17:8): ORA-00934: 그룹 함수는 허가되지 않습니다.
+  ```
+
+- WHERE 절과 HAVING 절의 차이점
+  ```SQL
+  -- WHERE절을 사용하지 않고 HAVING절만 사용한 경우
+  SELECT DEPTNO, JOB, AVG(SAL)
+  FROM EMP
+  GROUP BY DEPTNO, JOB
+  HAVING AVG(SAL) >= 2000
+  ORDER BY DEPTNO, JOB;
+  ```
+  ![1](https://github.com/hilim9/sql_study/assets/134352560/c893434d-fc16-441d-971a-dbe68dc7bc1f)
+
+  ```SQL
+  -- WHERE절과 HAVING절을 모두 사용한 경우
+  -- WHERE절이 GROUP BY절, HAVING절보다 먼저 실행됩니다.
+  SELECT DEPTNO, JOB, AVG(SAL)
+  FROM EMP
+  WHERE SAL <= 3000
+  GROUP BY DEPTNO, JOB
+  HAVING AVG(SAL) >= 2000
+  ORDER BY DEPTNO, JOB;
+  ```
+  ![2](https://github.com/hilim9/sql_study/assets/134352560/6ac932ed-3d79-4593-a0f0-5718cdf621a9)
+
+  WHERE 절을 추가한 SELECT문에서는 10번 부서의 PRESIDENT 데이터가 출력되지 않습니다.
+  이는 WHERE절이 GROUP BY절과 HAVING절을 사용한 데이터 그룹화보다 먼저 출력 대상이 될 행을 제한하기 때문입니다.
+  즉, GROUP BY절을 수행하기 전에 WHERE절의 조건식으로 출력 행의 제한이 먼저 이루어진다는 것을 반드시 기억하세요.
