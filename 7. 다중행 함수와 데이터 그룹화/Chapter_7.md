@@ -226,3 +226,25 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
   WHERE 절을 추가한 SELECT문에서는 10번 부서의 PRESIDENT 데이터가 출력되지 않습니다.
   이는 WHERE절이 GROUP BY절과 HAVING절을 사용한 데이터 그룹화보다 먼저 출력 대상이 될 행을 제한하기 때문입니다.
   즉, GROUP BY절을 수행하기 전에 WHERE절의 조건식으로 출력 행의 제한이 먼저 이루어진다는 것을 반드시 기억하세요.
+
+---
+### 7-4. 그룹화와 관련된 여러 함수
+- ROLLUP, CUBE, GROUPING SETS 함수
+  - ROLLUP, CUBE 함수
+    ROLLUP, CUBE, GROUPING SETS 함수는 GROUP BY절에 지정할 수 있는 특수 함수입니다.
+    ROLLUP 함수와 CUBE 함수는 그룹화 데이터의 합계를 출력할 때 유용하게 사용할 수 있습니다.
+    ```SQL
+    -- ROLLUP 함수 기본형식
+    SELECT [조회할 열1 이름], [열2 이름], ..., [열N 이름]
+    FROM [조회할 테이블 이름]
+    WHERE [조회할 행을 선별하는 조건식]
+    GROUP BY ROLLUP [그룹화 열 지정(여러개 지정 가능)];
+    ```
+
+    ```SQL
+    -- CUBE 함수 기본형식
+    SELECT [조회할 열1 이름], [열2 이름], ..., [열N 이름]
+    FROM [조회할 테이블 이름]
+    WHERE [조회할 행을 선별하는 조건식]
+    GROUP BY CUBE [그룹화 열 지정(여러개 지정 가능)];
+    ```
