@@ -256,3 +256,24 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
     GROUP BY DEPTNO, JOB
     ORDER BY DEPTNO, JOB;
     ```
+
+    ROLLUP 함수는 명시한 열을 소그룹부터 대그룹의 순서로 각 그룹별 결과를 출력하고 마지막에 총 데이터의 결과를 출력합니다.
+    ROLLUP 함수에 명시한 열에 한아여 결과가 출력된다는 것과 ROLLUP 함수에는 그룹함수를 지정할 수 없다는 것을 기억해주세요.
+    ```SQL
+    -- ROLLUP 함수를 적용한 그룹화
+    SELECT DEPTNO, JOB, COUNT(*), MAX(SAL), SUM(SAL), AVG(SAL)
+    FROM EMP
+    GROUP BY ROLLUP(DEPTNO, JOB);
+    ```
+
+    CUBE 함수는 ROLLUP 함수를 사용했을 때보다 좀더 많은 결과가 나옵니다. 여기에서 주의 깊게 확인해야 하는 부분은 부서와 상관없이 직책별 결과가 함깨 출력되고 있는 부분입니다.
+    이렇듯 CUBE 함수는 지정한 모든 열에서 가능한 조합의 결과를 모두 출력합니다.
+    ```SQL
+    -- CUBE 함수를 적용한 그룹화
+    SELECT DEPTNO, JOB, COUNT(*), MAX(SAL), SUM(SAL), AVG(SAL)
+    FROM EMP
+    GROUP BY CUBE(DEPTNO, JOB);
+    ORDER BY DEPTNO, JOB;
+    ```
+
+    
