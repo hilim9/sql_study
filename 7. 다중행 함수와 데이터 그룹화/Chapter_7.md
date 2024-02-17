@@ -248,3 +248,11 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
     WHERE [조회할 행을 선별하는 조건식]
     GROUP BY CUBE [그룹화 열 지정(여러개 지정 가능)];
     ```
+
+    ```SQL
+    -- 기존 GROUP BY절만 사용한 그룹화
+    SELECT DEPTNO, JOB, COUNT(*), MAX(SAL), SUM(SAL), AVG(SAL)
+    FROM EMP
+    GROUP BY DEPTNO, JOB
+    ORDER BY DEPTNO, JOB;
+    ```
