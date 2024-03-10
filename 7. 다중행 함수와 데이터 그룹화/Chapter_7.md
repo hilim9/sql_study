@@ -333,3 +333,18 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
     WHERE [조회할 행을 선별하는 조건식]
     GROUP BY ROLLUP 또는 CUBE [그룹화할 열];
     ```
+    
+    GROUPING 함수의 결과 값을 0,1로 구별하여 출력하면 현재 출력되는 데이터가 어떤 열의 그룹화를 통해 나온 것인지 알 수 있습니다.
+    ```SQL
+    -- DEPTNO, JOB열의 그룹화 결과 여부를 GROUPING 함수로 확인하기
+    SELECT DEPTNO, JOB, COUNT(*), MAX(SAL), SUM(SAL), AVG(SAL),
+           GROUPING(DEPTNO),
+           GROUPING(JOB)
+    FROM EMP
+    GROUP BY CUBE(DEPTNO, JOB)
+    ORDER BY DEPTNO, JOB;
+    ```
+    ![312321](https://github.com/hilim9/sql_study/assets/134352560/ef22271d-c1a8-4912-a98b-dfabffcc169d)
+
+    여기에서 0은 GROUPING 함수에 지정한 열이 그룹화되었음을 의미하고 1이 나왔다는 것은 그룹화되지 않은 데이터를 의미합니다.
+
