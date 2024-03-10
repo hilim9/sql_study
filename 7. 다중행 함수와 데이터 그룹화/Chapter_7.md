@@ -319,3 +319,17 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
     ![11](https://github.com/hilim9/sql_study/assets/134352560/d45ca034-0435-46d0-9328-cbb4bb2d03af)
 
     실행 결과를 살펴보면 그룹화를 위해 지정한 열이 계층적으로 분류되지 않고 각각 따로 그룹화한 후 연산을 수행했음을 알 수 있습니다.
+
+- 그룹화 함수
+  - GROUPING 함수<br>
+    ROLLUP 또는 CUBE 함수를 사용한 GROUP BY절에 그룹화 대상으로 지정한 열일 그룹화된 상태로 결과가 집계되었는지 확인하는 데 사용합니다. 
+    GROUP BY절에 명시된 열 중 하나를 지정할 수 있습니다.
+
+    ```SQL
+    -- 기본형식
+    SELECT [조회할 열1 이름], [열2 이름], ..., [열N 이름]
+      GROUPING [GROUP BY절에 ROLLUP 또는 CUBE에 명시한 그룹화 할 열 이름]
+    FROM [조회할 테이블 이름]
+    WHERE [조회할 행을 선별하는 조건식]
+    GROUP BY ROLLUP 또는 CUBE [그룹화할 열];
+    ```
