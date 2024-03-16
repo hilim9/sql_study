@@ -348,3 +348,30 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
 
     여기에서 0은 GROUPING 함수에 지정한 열이 그룹화되었음을 의미하고 1이 나왔다는 것은 그룹화되지 않은 데이터를 의미합니다.
 
+  - GROUPING_ID 함수<br>
+    ROLLUP 또는 CUBE 함수로 연산할 때 특정 열이 그룹화되었는지 출력하는 함수입니다.
+    그룹화 여부를 검사할 열을 하나씩 지정하는 GROUPING 함수와 달리 GROUPING_ID 함수는 한 번에 여러 열을 지정할 수 있습니다.
+
+    ```
+    -- 기본형식
+    SELECT [조회할 열1 이름], [열2 이름], ..., [열N 이름]
+      GROUPING_ID [그룹화 여부를 확인할 열(여러 개 지정 가능)]
+    FROM [조회할 테이블 이름]
+    WHERE [조회할 행을 선별하는 조건식]
+    GROUP BY ROLLUP 또는 CUBE [그룹화 할 열];
+    ```
+
+    GROUPING_ID 함수는 한 번에 여러 개 열을 지정할 수 있으므로 지정한 열의 순서에 따라 0,1 값이 하나씩 출력됩니다.
+    이렇게 0과 1로 구성된 그룹화 비트 벡터 값을 2진수로 보고 10진수로 바꾼 값이 최종결과로 출력됩니다.
+    ```
+    -- DEPTNO, JOB을 함께 명시한 GROUPING_ID 함수 사용하기
+    SELECT DEPTNO, JOB, COUNT(*), SUM(SAL),
+           GROUPING(DEPTNO),
+           GROUPING(JOB),
+           GROUPING_ID(DEPTNO, JOB)
+    FROM EMP
+    GROUP BY CUBE(DEPTNO, JOB)
+    ORDER BY DEPTNO, JOB;
+    ```
+    ![12213](https://github.com/hilim9/sql_study/assets/134352560/e73c99c9-e607-4254-919b-d4cd6150fed3)
+
