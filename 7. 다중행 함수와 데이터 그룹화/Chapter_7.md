@@ -375,3 +375,27 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
     ```
     ![12213](https://github.com/hilim9/sql_study/assets/134352560/e73c99c9-e607-4254-919b-d4cd6150fed3)
 
+- LISTAGG 함수<br>
+  LISTAGG 함수는 오라클 11g 버전부터 사용할 수 있는 함수입니다. 그룹에 속해 있는 데이터를 가로로 나열할 때 사용합니다.
+
+  ```SQL
+  -- 기본형식
+  SELECT [조회할 열1 이름], [열2 이름], ..., [열N 이름]
+         LISTAGG([나열할 열(필수))], [각 데이터를 구분하는 구분자(선택)])
+         WITHIN GROUP(OREDR BY 나열할 열의 정렬 기준 열 (선택))
+  FROM [조회할 테이블 이름]
+  WHERE [조회할 행을 선별하는 조건식];
+  ```
+
+  ```SQL
+  -- 부서별 사원 이름을 나란히 나열하여 출력하기
+  SELECT DEPTNO,
+         LISTAGG(ENAME, ', ')
+         WITHIN GROUP(ORDER BY SAL DESC) AS ENAMES
+  FROM EMP
+  GROUP BY DEPTNO;
+  ```
+
+  ![123](https://github.com/hilim9/sql_study/assets/134352560/433e5053-6654-4fe9-8cea-ad182f900d3f)
+
+  
