@@ -418,10 +418,10 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
   -- UNPIVOT 함수를 사용하여 열로 구분된 그룹을 행으로 출력하기
   SELECT *
     FROM(SELECT DEPTNO,
-                MAX(DECODE(JOB, 'CLERK'  , SAL)) AS "CLERK"
-                MAX(DECODE(JOB, 'SALESMAN'  , SAL)) AS "SALESMAN"
-                MAX(DECODE(JOB, 'PRESIDENT'  , SAL)) AS "PRESIDENT"
-                MAX(DECODE(JOB, 'MANAGER'  , SAL)) AS "MANAGER"
+                MAX(DECODE(JOB, 'CLERK'  , SAL)) AS "CLERK",
+                MAX(DECODE(JOB, 'SALESMAN'  , SAL)) AS "SALESMAN",
+                MAX(DECODE(JOB, 'PRESIDENT'  , SAL)) AS "PRESIDENT",
+                MAX(DECODE(JOB, 'MANAGER'  , SAL)) AS "MANAGER",
                 MAX(DECODE(JOB, 'ANALYST'  , SAL)) AS "ANALYST"
             FROM EMP
             GROUP BY DEPTNO
