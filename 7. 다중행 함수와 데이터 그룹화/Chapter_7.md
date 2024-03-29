@@ -398,4 +398,40 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
 
   ![123](https://github.com/hilim9/sql_study/assets/134352560/433e5053-6654-4fe9-8cea-ad182f900d3f)
 
-  
+- PIVOT, UNPIVOT 함수
+  PIVOT, UNPIVOT 함수는 오라클 11g부터 제공하며 PIVOT 함수는 기존 테이블 행을 열로 바꾸고 UNPIVOT함수는 기존 테이블 열을 행으로 바꿔서 출력합니다.
+
+  ```SQL
+  -- PIVOT 함수를 사용하여 직책별·부서별 최고 급여를 2차원 표 형태로 출력하기
+  SELECT *
+    FROM(SELECT DEPTNO, JOB, SAL
+         FROM EMP)
+  PIVOT(MAX(SAL)
+        FOR DEPTNO IN (10, 20, 30)
+        )
+  ORDER BY JOB;
+  ```
+  ![11](https://github.com/hilim9/sql_study/assets/134352560/3217fcfa-2b29-4498-8fde-a9caee5eee9a)
+
+  UNPIVOT 함수는 PIVOT 함수와 반대 기능을 합니다.
+  ```SQL
+  -- UNPIVOT 함수를 사용하여 열로 구분된 그룹을 행으로 출력하기
+  SELECT *
+    FROM(SELECT DEPTNO,
+                MAX(DECODE(JOB, 'CLERK'  , SAL)) AS "CLERK"
+                MAX(DECODE(JOB, 'SALESMAN'  , SAL)) AS "SALESMAN"
+                MAX(DECODE(JOB, 'PRESIDENT'  , SAL)) AS "PRESIDENT"
+                MAX(DECODE(JOB, 'MANAGER'  , SAL)) AS "MANAGER"
+                MAX(DECODE(JOB, 'ANALYST'  , SAL)) AS "ANALYST"
+            FROM EMP
+            GROUP BY DEPTNO
+            ORDER BY DEPTNO)
+    UNPIVOT(
+      SAL FOR JOB IN (CLERK, SALESMAN, PRESIDENT, MANAGER, ANALYST))
+  ORDER BY DEPTNO, JOB;
+  ```
+
+  ![22](https://github.com/hilim9/sql_study/assets/134352560/be879d69-ce2e-4fdf-9ac7-9779c4147dce)
+
+
+  결과를 살펴보면 PIVOT 함수를 적용하기 전과 같이 출력되는 것을 알 수 있습니다.
