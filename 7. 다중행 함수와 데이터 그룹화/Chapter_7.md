@@ -398,7 +398,7 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
 
   ![123](https://github.com/hilim9/sql_study/assets/134352560/433e5053-6654-4fe9-8cea-ad182f900d3f)
 
-- PIVOT, UNPIVOT 함수
+- PIVOT, UNPIVOT 함수<br>
   PIVOT, UNPIVOT 함수는 오라클 11g부터 제공하며 PIVOT 함수는 기존 테이블 행을 열로 바꾸고 UNPIVOT함수는 기존 테이블 열을 행으로 바꿔서 출력합니다.
 
   ```SQL
@@ -430,8 +430,6 @@ HAVING 절은 SELECT문에 GROUP BY 절이 존재할 때만 사용할 수 있습
       SAL FOR JOB IN (CLERK, SALESMAN, PRESIDENT, MANAGER, ANALYST))
   ORDER BY DEPTNO, JOB;
   ```
-
   ![22](https://github.com/hilim9/sql_study/assets/134352560/be879d69-ce2e-4fdf-9ac7-9779c4147dce)
-
 
   결과를 살펴보면 PIVOT 함수를 적용하기 전과 같이 출력되는 것을 알 수 있습니다.
