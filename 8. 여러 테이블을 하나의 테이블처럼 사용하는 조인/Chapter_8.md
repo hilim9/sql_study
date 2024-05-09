@@ -49,6 +49,25 @@
     등가 조인을 사용할 때 조인 조건이 되는 각 테이블의 열이름이 같을 경우에 해당 열 이름을 테이블 구분 없이 명시하면 오류가 발생하므로
     어느 테이블에 속해 있는 열인지 반드시 명시해야 합니다.
 
+    ```SQL
+    -- 두 테이블에 부서 번호가 똑같은 열 이름으로 포함되어 있을 때    
+    SELECT EMPNO, ENAME, SAL, DEPTNO, DNAME, LOC
+    FROM EMP E, DEPT D
+    WHERE E.DEPTNO = D.DEPTNO;
+    -- 오류 발생
+    ```
+    ![345](https://github.com/hilim9/sql_study/assets/134352560/19b96e9e-b013-4d07-a6d9-51df7a8c068e)
+
+    ```SQL
+    -- 열 이름에 각각의 테이블 이름도 함께 명시할 때
+    SELECT E.EMPNO, E.ENAME, E.SAL, D.DEPTNO, D.DNAME, D.LOC
+    FROM EMP E, DEPT D
+    WHERE E.DEPTNO = D.DEPTNO
+    ORDER BY D.DEPTNO, E.EMPNO;
+    ```
+    ![234](https://github.com/hilim9/sql_study/assets/134352560/408b24db-9335-456d-92c5-b03d2b73d9f4)
+
+
   - WHERE절에 조건식 추가하여 출력 범위 설정하기<br>
     출력 행을 더 제한하고 싶다면 WHERE절에 조건식을 추가로 지정해 줄 수 있습니다.
     ```SQL
@@ -58,6 +77,7 @@
     WHERE E.DEPTNO = D.DEPTNO
       AND SAL >= 3000;
     ```
+    ![123](https://github.com/hilim9/sql_study/assets/134352560/2dc37c9b-692b-4efe-a259-3a091bffd055)
 
   - 조인 테이블 개수와 조건식 개수의 관계<br>
     조인 조건을 제대로 지정하지 않으면 데카르트 곱(CARTESIAN PRODUCT) 때문에 정확히 연결되지 않아서 필요 없는 데이터까지 모두 조합되어 출력됩니다.
