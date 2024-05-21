@@ -93,6 +93,7 @@
   FROM EMP E, SALGRADE S
   WHERE E.SAL BETWEEN S.LOSAL AND S.HISAL;
   ```
+  ![123](https://github.com/hilim9/sql_study/assets/134352560/0f7d5cec-98ce-4b4d-aadc-8dda4a3e6cd2)
 
   비등가 조인 방식은 등가 조인 방식에 비해 자주 사용하는 방식은 아니지만, 조인 조건이 특정 열의 일치 여부를 검사하는 방식 외에 다른 방식도 사용할 수 있습니다.
   
