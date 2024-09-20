@@ -96,4 +96,40 @@
   ![123](https://github.com/hilim9/sql_study/assets/134352560/0f7d5cec-98ce-4b4d-aadc-8dda4a3e6cd2)
 
   비등가 조인 방식은 등가 조인 방식에 비해 자주 사용하는 방식은 아니지만, 조인 조건이 특정 열의 일치 여부를 검사하는 방식 외에 다른 방식도 사용할 수 있습니다.
+
+- 자체 조인<br>
+  하나의 테이블을 여러 개의 테이블처럼 활용하여 조인하는 방식으로 물리적으로 동일한 테이블 여러 개를 사용할 때 발생할 수 있는 문제점을 해결합니다.
+  자체조인은 FROM절에 같은 테이블을 여러번 명시하되 테이블의 별칭만 다르게 지정하는 방식으로 사용합니다.
+  또 두 개 테이블에서 지정한 열 중 일치한 데이터를 기준으로 조인하므로 큰 범위에서는 등가 조인으로 볼 수 있습니다.
+  ```SQL
+  -- 같은 테이블을 두 번 사용하여 자체 조인하기
+  SELECT E1.EMPNO, E1.ENAME, E1.MGR,
+         E2.EMPNO AS MGR_EMPNO,
+         E2.ENAME AS MGR_ENAME
+  FROM EMP E1, EMP E2
+  WHERE E1.MGR = E2.EMPNO;
+  ```
+
+- 외부 조인<br>
+  두 테이블 간 조인 수행에서 조인 기준 열의 어느 한쪽이 NULL이어도 강제로 출력하는 방식입니다.
+  외부 조인은 좌우를 따로 나누어 지정하는데 WHERE절에 조인 기준 열 중 한쪽에 (+)기호를 붙여줍니다.
+  ```SQL
+  -- 왼쪽 외부 조인 사용하기
+  SELECT E1.EMPNO, E1.ENAME, E1.MGR,
+         E2.EMPNO AS MGR_EMPNO,
+         E2.ENAME AS MGR_ENAME
+  FROM EMP E1, EMP E2
+  WHERE E1.MGR = E2.EMPNO(+)
+  ORDER BY E1.EMPNO;
+  ```
+  
+   ```SQL
+  -- 오른쪽 외부 조인 사용하기
+  SELECT E1.EMPNO, E1.ENAME, E1.MGR,
+         E2.EMPNO AS MGR_EMPNO,
+         E2.ENAME AS MGR_ENAME
+  FROM EMP E1, EMP E2
+  WHERE E1.MGR(+) = E2.EMPNO
+  ORDER BY E1.EMPNO;
+  ```
   
